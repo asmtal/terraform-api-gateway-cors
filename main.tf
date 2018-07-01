@@ -6,7 +6,7 @@ variable "allow_credentials" {
 }
 
 variable "methods" {
-  default = 'OPTIONS,GET,PUT,POST,DELETE,PATCH,UPDATE,HEAD'
+  default = "OPTIONS,GET,PUT,POST,DELETE,PATCH,UPDATE,HEAD"
 }
 
 resource "aws_api_gateway_method" "options_method" {
