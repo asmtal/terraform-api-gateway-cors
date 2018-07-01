@@ -28,7 +28,7 @@ resource "aws_api_gateway_method_response" "options_200" {
 
   response_parameters {
     "method.response.header.Access-Control-Allow-Headers" = true,
-    "method.response.header.Access-Control-Allow-Methods" = "${var.methods}",
+    "method.response.header.Access-Control-Allow-Methods" = "${var.methods}"
     "method.response.header.Access-Control-Allow-Origin" = true
     "method.response.header.Access-Control-Allow-Credentials" = "${var.allow_credentials}"
   }
