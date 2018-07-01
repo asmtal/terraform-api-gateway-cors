@@ -35,6 +35,9 @@ resource "aws_api_gateway_integration" "options_integration" {
   resource_id   = "${var.resource_id}"
   http_method   = "${aws_api_gateway_method.options_method.http_method}"
   type          = "MOCK"
+  request_templates {
+    "application/json" = "{'statusCode': 200}"
+  }
   depends_on = ["aws_api_gateway_method.options_method"]
 }
 resource "aws_api_gateway_integration_response" "options_integration_response" {
