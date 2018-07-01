@@ -1,6 +1,13 @@
 
 variable "api_id" {}
 variable "resource_id" {}
+variable "allow_credentials" {
+  default = false
+}
+
+variable "methods" {
+  default = 'OPTIONS,GET,PUT,POST,DELETE,PATCH,UPDATE,HEAD'
+}
 
 resource "aws_api_gateway_method" "options_method" {
   rest_api_id   = "${var.api_id}"
@@ -14,13 +21,16 @@ resource "aws_api_gateway_method_response" "options_200" {
   resource_id   = "${var.resource_id}"
   http_method   = "${aws_api_gateway_method.options_method.http_method}"
   status_code   = "200"
-  response_models {
-    "application/json" = "Empty"
+
+  response_templates = {
+    "application/json" = "{'statusCode':200}"
   }
+
   response_parameters {
     "method.response.header.Access-Control-Allow-Headers" = true,
-    "method.response.header.Access-Control-Allow-Methods" = true,
+    "method.response.header.Access-Control-Allow-Methods" = "${var.methods}",
     "method.response.header.Access-Control-Allow-Origin" = true
+    "method.response.header.Access-Control-Allow-Credentials" = "${var.allow_credentials}"
   }
   depends_on = ["aws_api_gateway_method.options_method"]
 }
